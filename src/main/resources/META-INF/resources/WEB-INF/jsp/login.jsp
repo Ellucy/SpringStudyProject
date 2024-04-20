@@ -1,15 +1,15 @@
 <html>
 	<head>
-		<title> My first HTML Page - JSP</title>
+		<title>Login page</title>
 	</head>
 	<body>
 
 	    <h2>Log in</h2>
         <form method="post">
 		    <label>Username: </label>
-		    <input type="text" name="username"></input>
+		    <input type="text" name="name"></input>
 		    <label>Password: </label>
-            <input type="password" password="password"></input>
+            <input type="password" name="password"></input>
             <input type="submit">
 		</form>
 	</body>
