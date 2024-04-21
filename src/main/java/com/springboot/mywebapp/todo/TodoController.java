@@ -3,8 +3,11 @@ package com.springboot.mywebapp.todo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -20,8 +23,19 @@ public class TodoController {
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-        List<Todo> todos = todoService.findByUsername("eleri");
+        List<Todo> todos = todoService.findByUsername("Eleri");
         model.put("todos", todos);
         return "listTodos";
+    }
+
+    @RequestMapping(value= "add-todo", method = RequestMethod.GET)
+    public String showNewTodoPage(ModelMap model) {
+        return "todo";
+    }
+
+    @RequestMapping(value= "add-todo", method = RequestMethod.POST)
+    public String addNewTodoPage(@RequestParam String description, ModelMap model) {
+todoService.addTodo((String) model.get("name"), description, LocalDate.now().plusMonths(1), false);
+        return "redirect:list-todos";
     }
 }
