@@ -31,7 +31,6 @@ public class LoginController {
         //Authentication- name: eleri, password: 1234
         if(authenticationService.authenticate(name, password)) {
             model.put("name", name);
-            model.put("password", password);
             return "welcome";
         } else {
             model.put("errorMessage", "Invalid credentials. Please try again.");

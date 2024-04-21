@@ -11,8 +11,8 @@ public class TodoService {
     private static List<Todo> todos = new ArrayList<>();
     static{
         todos.add(new Todo(1, "eleri", "Learn Spring", LocalDate.now().plusMonths(1), false));
-                todos.add(new Todo(1, "eleri", "Learn Angular", LocalDate.now().plusMonths(3), false));
-                todos.add(new Todo(1, "eleri", "Learn Spring Security", LocalDate.now().plusMonths(2), false));
+                todos.add(new Todo(2, "eleri", "Learn Angular", LocalDate.now().plusMonths(3), false));
+                todos.add(new Todo(3, "eleri", "Learn Spring Security", LocalDate.now().plusMonths(2), false));
     }
 
     public List<Todo> findByUsername(String username) {
