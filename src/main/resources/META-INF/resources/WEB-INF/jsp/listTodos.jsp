@@ -5,10 +5,9 @@
 		<link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" >
 	</head>
 	<body>
-		<div>Welcome ${name}</div>
-		<hr>
-		<h2>Your todos are:</h2>
-		<table>
+	<div class="container">
+		<h2 class="mt-4">Your todos are</h2>
+		<table class="table">
 			<thead>
 				<tr>
 					<th>id</th>
@@ -28,6 +27,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 		<script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
         <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 	</body>
