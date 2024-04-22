@@ -1,6 +1,8 @@
 package com.springboot.mywebapp.todo;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,14 +27,20 @@ public class TodoController {
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-        List<Todo> todos = todoService.findByUsername("Eleri");
+        String username = getLoggedInUsername(model);
+        List<Todo> todos = todoService.findByUsername(username);
         model.put("todos", todos);
         return "listTodos";
     }
 
+    private String getLoggedInUsername(ModelMap model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
     @RequestMapping(value = "add-todo", method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap model) {
-        Todo todo = new Todo(0, (String) model.get("name"), "", LocalDate.now().plusMonths(4), false);
+        Todo todo = new Todo(0, getLoggedInUsername(model), "", LocalDate.now().plusMonths(4), false);
         model.put("todo", todo);
         return "todo";
     }
@@ -42,7 +50,7 @@ public class TodoController {
         if (result.hasErrors()) {
             return ("todo");
         }
-        todoService.addTodo((String) model.get("name"), todo.getDescription(), todo.getTargetDate(), false);
+        todoService.addTodo(getLoggedInUsername(model), todo.getDescription(), todo.getTargetDate(), false);
         return "redirect:list-todos";
     }
 
@@ -64,7 +72,7 @@ public class TodoController {
         if (result.hasErrors()) {
             return ("todo");
         }
-        String userName = (String) model.get("name");
+        String userName = getLoggedInUsername(model);
         todo.setUsername(userName);
         todoService.updateTodo(todo);
         return "redirect:list-todos";
