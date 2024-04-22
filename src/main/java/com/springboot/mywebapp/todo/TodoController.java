@@ -50,8 +50,8 @@ public class TodoController {
         if (result.hasErrors()) {
             return ("todo");
         }
-        todoService.addTodo(getLoggedInUsername(model), todo.getDescription(), todo.getTargetDate(), false);
-        return "redirect:list-todos";
+        String username = getLoggedInUsername(model);
+        todoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), todo.isDone());        return "redirect:list-todos";
     }
 
     @RequestMapping("delete-todo")
